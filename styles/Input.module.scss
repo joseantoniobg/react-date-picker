@@ -1,0 +1,26 @@
+@import "variables";
+
+.input {
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+
+  input,
+  textarea {
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1.8rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 2px solid #000;
+
+    &:focus {
+      border: 4px solid $color-primary;
+      box-shadow: 0px 0px 5px rgba($color-primary, 1);
+    }
+  }
+}
