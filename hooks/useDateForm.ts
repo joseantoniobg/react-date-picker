@@ -82,6 +82,24 @@ const getPreviousMonthDate = (date: Date): Date => {
   return previousMonthDate;
 };
 
+const isValidDate = (dateString: string): boolean => {
+  if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) return false;
+
+  var parts = dateString.split("/");
+  var day = parseInt(parts[0], 10);
+  var month = parseInt(parts[1], 10);
+  var year = parseInt(parts[2], 10);
+
+  if (year < 1000 || year > 3000 || month == 0 || month > 12) return false;
+
+  var monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+    monthLength[1] = 29;
+
+  return day > 0 && day <= monthLength[month - 1];
+};
+
 const getNextMonthDate = (date: Date): Date => {
   const nextMonthDate = new Date(
     date.getUTCMonth() === 11
@@ -97,13 +115,6 @@ const getNextMonthDate = (date: Date): Date => {
 const formatDayMonth = (dayOrMonth: number): string => {
   return `${dayOrMonth < 10 ? "0" : ""}${dayOrMonth.toString()}`;
 };
-
-const formatDateString = (date: Date): string => {
-  return `${formatDayMonth(date.getUTCDate())}/${formatDayMonth(
-    date.getUTCMonth() + 1
-  )}/${formatDayMonth(date.getUTCFullYear())}`;
-};
-
 interface UseDateProps {
   onChange: (e) => void;
   onBlur: (e) => void;
@@ -205,7 +216,7 @@ const useDateForm = (
 
       var timestamp = Date.parse(isoDate);
 
-      if (isNaN(timestamp) == false) {
+      if (isValidDate(date) && isNaN(timestamp) == false) {
         setDate(new Date(timestamp));
         setDateProps(
           getUTCDatePropsArray(new Date(timestamp), new Date(timestamp))
