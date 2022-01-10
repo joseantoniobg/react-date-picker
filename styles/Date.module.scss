@@ -70,6 +70,7 @@
   border: none;
   width: 4rem;
   height: 4rem;
+  justify-self: center;
 
   &:hover {
     background-color: $color-hover-date;
@@ -108,14 +109,16 @@
   display: grid;
   flex-grow: 1;
   grid-template-columns: repeat(7, 1fr);
+  align-items: center;
   width: 320px;
-  height: 370px;
+  height: 350px;
 }
 
 .week {
   text-align: center;
   font-weight: bold;
   height: 1rem;
+  align-self: flex-start;
 }
 
 .mainContainer {
