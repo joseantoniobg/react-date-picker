@@ -82,6 +82,26 @@ const getPreviousMonthDate = (date: Date): Date => {
   return previousMonthDate;
 };
 
+const getPreviousYearDate = (date: Date): Date => {
+  const previousYearDate = new Date(
+    date.getUTCFullYear() - 1,
+    date.getUTCMonth(),
+    1
+  );
+
+  return previousYearDate;
+};
+
+const getNextYearDate = (date: Date): Date => {
+  const nextYearDate = new Date(
+    date.getUTCFullYear() + 1,
+    date.getUTCMonth(),
+    1
+  );
+
+  return nextYearDate;
+};
+
 const isValidDate = (dateString: string): boolean => {
   if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString)) return false;
 
@@ -122,6 +142,8 @@ interface UseDateProps {
   dateProps: DateProps[];
   goToPreviousMonth: () => void;
   goToNextMonth: () => void;
+  goToPreviousYear: () => void;
+  goToNextYear: () => void;
   setNewDate: (day: number) => void;
 }
 
@@ -177,6 +199,20 @@ const useDateForm = (
     setDate(previousMonth);
     setDateProps(
       getUTCDatePropsArray(previousMonth, getSelectedDateFromValue())
+    );
+  };
+
+  const goToNextYear = () => {
+    const nextYear = getNextYearDate(date);
+    setDate(nextYear);
+    setDateProps(getUTCDatePropsArray(nextYear, getSelectedDateFromValue()));
+  };
+
+  const goToPreviousYear = () => {
+    const previousYear = getPreviousYearDate(date);
+    setDate(previousYear);
+    setDateProps(
+      getUTCDatePropsArray(previousYear, getSelectedDateFromValue())
     );
   };
 
@@ -245,10 +281,12 @@ const useDateForm = (
   return {
     onChange,
     currentYear: new Date().getUTCFullYear(),
-    onBlur: onBlur,
+    onBlur,
     dateProps,
     goToPreviousMonth,
     goToNextMonth,
+    goToPreviousYear,
+    goToNextYear,
     setNewDate,
   };
 };

@@ -11,11 +11,11 @@ const Home: NextPage = () => {
   return (
     <div className={styles.main}>
       <div className={styles.dateContainer}>
-        <DateField value={date} setValue={setDate} />
+        <DateField label='Uma Data:' value={date} setValue={setDate} />
         <p>{date ? `Você escolheu a data ${date}` : 'Escolha uma data, se quiser'}</p>
       </div>
       <div className={styles.dateContainer}>
-        <DateField value={anotherDate} setValue={setAnotherDate} />
+        <DateField label='Outra Data:' value={anotherDate} setValue={setAnotherDate} />
         <p>{anotherDate ? `Você escolheu a data ${anotherDate}` : 'Escolha uma data, se quiser'}</p>
       </div>
     </div>
